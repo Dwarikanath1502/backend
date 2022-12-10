@@ -1,5 +1,5 @@
 const express = require('express')
-const router = express.Router()
+const router = express.Router() 
 const { check } = require('express-validator');
 const { signout, signup, signin, isSignedIn } = require('../controllers/auth')
 
@@ -24,9 +24,9 @@ router.post("/signin", [
         .withMessage('Password field is reequired'),
 ], signin)
 
-// router.get("/testroute",isSignedIn, (req, res)=> {
-//     res.json(req.auth)
-// })
+router.get("/testroute",isSignedIn, (req, res)=> {
+    res.json(req.auth)
+})
 
 router.get("/signout", signout)
 

@@ -30,9 +30,10 @@ exports.signup = (req, res) => {
     //     message: "sign up route works!"
     // })
 }
+
 exports.signin = (req, res) => {
     const errors = validationResult(req);
-    const { email, password } = req.body;
+    const { email, password } = req.body; //  destructuring
 
     if (!errors.isEmpty()) {
         return res.status(422).json({
@@ -43,7 +44,7 @@ exports.signin = (req, res) => {
     User.findOne({ email }, (err, user) => {
         if (err || !user) {
             return res.status(400).json({
-                err: "User doen't exists..."
+                err: "User doesn't exists..."
             })
         }
         if (!user.authenticate(password)) {
@@ -58,7 +59,7 @@ exports.signin = (req, res) => {
         res.cookie("token", token, { expire: new Date() + 9999 });
 
         // send response to frontend
-        const { _id, name, email, role } = user
+        const { _id, name, email, role } = user;
         return res.json({
             token,
             user: { _id, name, email, role }
@@ -66,8 +67,6 @@ exports.signin = (req, res) => {
     })
 
 }
-
-
 
 exports.signout = (req, res) => {
     res.clearCookie("token")
@@ -85,18 +84,17 @@ exports.isSignedIn = jwt({
 })
 
 
-// CUSTOM MIDDLEWARE
-
+//custom middlewares
 exports.isAuthenticated = (req, res, next) => {
-    //checks user is authenticated or not
     let checker = req.profile && req.auth && req.profile._id == req.auth._id;
     if (!checker) {
         return res.status(403).json({
             error: "ACCESS DENIED"
-        })
+        });
     }
     next();
-}
+};
+
 
 exports.isAdmin = (req, res, next) => {
     if (req.profile.role === 0) {

@@ -27,11 +27,8 @@ app.use(cookieParser())
 app.use(cors())
 
 // MY ROUTES
-app.use('/api', authRoutes)
-app.use('/api', userRoutes)
-
-
-
+app.use('/api', authRoutes);
+app.use('/api', userRoutes);
 
 
 // PORT
