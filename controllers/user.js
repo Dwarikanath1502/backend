@@ -1,4 +1,5 @@
 const User = require('../models/user')
+const Order = require('../models/order')
 
 // param
 exports.getUserById = (req, res, next, id) => {
@@ -28,7 +29,7 @@ exports.updateUser = (req, res) => {
     User.findByIdAndUpdate(
         { _id: req.profile._id },
         { $set: req.body },
-        { new: true, userFindAndModify: false },
+        { new: true, us5eFindAndModify: false },
         (err, user) => {
             if (err) {
                 return res.status(400).json({
@@ -50,4 +51,19 @@ exports.getUser = (req, res) => {
     req.profile.createdAt = undefined;
     req.profile.updatedAt = undefined;
     return res.json(req.profile)
+}
+
+exports.userPurchaseList = (req, res) => {
+    Order.find({
+        user: req.profile._id
+    })
+        .populate("user", "_id name") //this is populate synatx no comma there
+        .exec((err, order) => {
+            if (err) {
+                return res.status(400).json({
+                    error: "No order in this account"
+                })
+            }
+            return res.json;
+        })
 }
