@@ -12,3 +12,15 @@ exports.getCategoryById = (req, res, next, id) => {
         next();
     })
 }
+
+exports.createCategory = (req, res) => {
+    const category = new Category(req.body);
+    category.save((err, category) => {
+        if (err) {
+            res.status(400).json({
+                error: "Category not added to database..."
+            })
+        }
+        res.json({ category })
+    })
+}
