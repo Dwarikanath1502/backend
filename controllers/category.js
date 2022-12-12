@@ -24,3 +24,18 @@ exports.createCategory = (req, res) => {
         res.json({ category })
     })
 }
+
+exports.getAllCategory = (req, res) => {
+    Category.find().exec((err, categories) => {
+        if (err || !category) {
+            res.status(400).json({
+                error: "No categories found"
+            })
+        }
+        res.json(categories);
+    })
+}
+
+exports.getCategory = (req, res) => {
+    return res.json(req.category)
+}
