@@ -66,3 +66,18 @@ exports.createProduct = (req, res) => {
 
 
 }
+
+exports.getProduct = (req, res) =>{
+    // we may remove undefined portion too, but it will not good foe user experiance
+    req.product.photo = undefined //it may have heavy sizze which may create delay
+    return res.json(req.product);
+}
+
+// it will load photo in background
+exports.photo = (req, res, next) =>{
+    if (req.product.photo.data) {
+        res.set("Content-Type", req.product.photo.contentType)
+        return res.send(req.product.photo.data);        
+    }
+    next();
+}
