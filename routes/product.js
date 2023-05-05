@@ -12,6 +12,8 @@ router.param("userId", getUserById)
 // routes
 // create route
 router.post("/product/create/:userId", isSignedIn, isAuthenticated, isAdmin, createProduct)
+// listing route
+router.get("/products", getAllProducts);
 // read route
 router.get("/product/:productId", getProduct)
 router.get("/product/photo/:productId", photo);
@@ -20,8 +22,7 @@ router.put("/product/:productId/:userId", isSignedIn, isAuthenticated, isAdmin, 
 // delete route
 router.delete("/product/:ProductId/:userId", isSignedIn, isAuthenticated, isAdmin, deleteProduct)
 
-// listing route
-router.get("/products", getAllProducts);
+
 
 router.get("/products/categories", getAllUniqueCategories)
 

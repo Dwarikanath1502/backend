@@ -122,8 +122,8 @@ exports.updateProduct = (req, res) => {
 
 
 exports.deleteProduct = (req, res) => {
-    const product = req.product;
-    product.remove((err, deletedproduct) => {
+    let product = req.product;
+    product.remove((err, deletedProduct) => {
         if (err) {
             res.status(400).json({
                 err: "Failed to delete the product"
