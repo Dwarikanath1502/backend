@@ -2,11 +2,12 @@ const braintree = require("braintree");
 
 const gateway = new braintree.BraintreeGateway({
     environment: braintree.Environment.Sandbox,
-    merchantId: "useYourMerchantId",
-    publicKey: "useYourPublicKey",
-    privateKey: "useYourPrivateKey"
+    merchantId: "tz8vmqfc3hv5g3jw",
+    publicKey: "tj9gmgqd5jjk4q3c",
+    privateKey: "ce860bfdab01b8da7be1083b2ec7ada2"
 });
 
+// tried to send response via json way but dont work, so sending directly
 exports.getToken = (req, res) => {
     gateway.clientToken.generate({})
         .then(response => {
