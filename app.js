@@ -6,13 +6,15 @@ const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+
 // MY ROUTES
 const authRoutes = require('./routes/auth')
 const userRoutes = require('./routes/user')
 const categoryRoutes = require('./routes/category')
 const productRoutes = require('./routes/product')
 const orderRoutes = require('./routes/order')
-const paymentRoutes = require('./routes/payment')
+const stripeRoutes = require('./routes/stripePayment')
+// const paymentRoutes = require('./routes/payment') // braintree
 
 // DATABASE CONNECTION 
 mongoose.connect(process.env.DATABASE, {
@@ -36,7 +38,8 @@ app.use('/api', userRoutes);
 app.use('/api', categoryRoutes);
 app.use('/api', productRoutes);
 app.use('/api', orderRoutes);
-app.use('/api', paymentRoutes);
+app.use('/api', stripeRoutes);
+// app.use('/api', paymentRoutes);
 
 
 // PORT
